@@ -24,5 +24,7 @@
 
 int main()
 {
-    
+    std::string s = "";
+    int t = std::stoi(s);
+    std::cout << t ;
 }
