@@ -11,41 +11,57 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int num1 = 0;
-        int num2 = 0;
-        int counter1 = 1;
-        int counter2 = 1;
-
-        while(l1){
-            num1 = num1 + ((l1 -> val) * counter1);
-            counter1 *= 10;
-            l1 = l1 -> next;
-        }
-
-        while(l2){
-            num2 = num2 + ((l2 -> val) * counter2);
-            counter2 *= 10;
-            l2 = l2 -> next;
-        }
-
-        int num3 = num1 + num2;
-
         ListNode* head = nullptr;
         ListNode* it = nullptr;
-        while(num3){
+        int sum = 0;
+        int carry = 0;
+
+        while(l1 && l2){
             ListNode* temp = new ListNode();
             if(!head){
                 head = temp;
                 it = head;
-                it -> val = num3 % 10;
-                num3 = num3/10;
-                continue;
-            } 
+            }
+            else{
+                it -> next = temp;
+                it = it -> next;
+            }
+
+            sum = l1 -> val + l2 -> val + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+            l1 = l1 -> next;
+            l2 = l2 -> next;
+            it -> val = sum;
+        }
+
+        while(l1){
+            ListNode* temp = new ListNode();
             it -> next = temp;
             it = it -> next;
-            it -> val = num3 % 10;
-            num3 = num3/10;
+            sum = l1 -> val + carry;
+            carry = sum /10;
+            sum = sum % 10;
+            it -> val = sum;
+            l1 = l1 -> next;
         }
+
+        while(l2){
+            ListNode* temp = new ListNode();
+            it -> next = temp;
+            it = it -> next;
+            sum = l2 -> val + carry;
+            carry = sum /10;
+            sum = sum % 10;
+            it -> val = sum;
+            l2 = l2 -> next;
+        }
+        if(carry){
+            ListNode* temp = new ListNode();
+            it -> next = temp;
+            it -> next -> val = carry;
+        }
+
         return head;
     }
 };
