@@ -31,42 +31,24 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-void solve() {
-    int n,x,y;
-    cin >> n >> x >> y;
-    vector<int> arr(n);
-    for(int i = 0; i < n ; i++){
-        cin >> arr[i];
-    }
-    unordered_map<int,int> first;
-    unordered_map<int,int> second;
-    int res = 0;
-
-    for(int i = 0 ;i <n;i++){
-        first[arr[i]%x]++;
-        second[arr[i]%y]++;
-    }
-
-    for(int i = 0; i < n; i++){
-        int modX = arr[i] % x;
-        int modY = arr[i] % y;
-
-        first[modX]--;
-        second[modY]--;
-
-        if (first[modX] > 0 && second[(y - modY) % y] > 0) {
-            res++;
-        }
-    }
-
-    cout << res << '\n';
-    return;
+int dfs(int a,int b){
+    if(a < b) return 1;
+    if(b == 1) return dfs(a,b+1);
+    return min(dfs(a/b,b) , dfs(a,b+1)) + 1;
 }
+
+void solve() {
+    int a,b;
+    cin >> a >> b;
+    cout <<  dfs(a,b);
+    cout << "\n";
+}
+
 
 int main() {
     fast_io
     int t = 1;
-    cin >> t;
+    cin >> t; 
     while (t--) {
         solve();
     }
