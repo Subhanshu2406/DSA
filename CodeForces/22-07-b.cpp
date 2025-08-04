@@ -40,24 +40,22 @@ const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for(int i = 0;i<n;i++){
-        cin >> arr[i];
+    long long int a,b,k;
+    cin >> a >> b >> k;
+    if(k >= a && k >= b) {
+        cout << 1;
+        cout << '\n';
+        return;
     }
-    string res = "";
-    int l = 0;
-    int r = arr.size() -1;
-    int toggle = 0; //ascending
-    int len = 1;
-    int curr = arr[0];
-    while(l <= r){
-        if(arr[l] == arr[r]){
-            s += 'L';
-            l++;
-        }
-        else if()
+    ll g = gcd(a, b);
+    ll x = a/g;
+    ll y = b/ g;
+
+    if (x <= k && y <= k){
+        cout << 1 << '\n';
+    } 
+    else {
+        cout << 2 << '\n';
     }
 
     return;

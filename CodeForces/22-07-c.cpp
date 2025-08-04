@@ -39,27 +39,31 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-void solve() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for(int i = 0;i<n;i++){
-        cin >> arr[i];
-    }
-    string res = "";
-    int l = 0;
-    int r = arr.size() -1;
-    int toggle = 0; //ascending
-    int len = 1;
-    int curr = arr[0];
-    while(l <= r){
-        if(arr[l] == arr[r]){
-            s += 'L';
-            l++;
+vector<int> prime_factors(int n) {
+    vector<int> factors;
+    for (int i = 2; i * i <= n; i++) {
+        while (n % i == 0) {
+            factors.push_back(i);
+            n /= i;
         }
-        else if()
     }
+    if (n > 1) factors.push_back(n); 
+    return factors;
+}
 
+void solve() {
+    int res = 0;
+    int l,r;
+    cin >> l >> r;
+    for(int i = l ; i <= r;i++){
+        vector<int> factors = prime_factors(i);
+        int j = 0;
+        for(;j<factors.size();j++){
+            if(factors[j] < 10) break;
+        }
+        if(factors.size() == j) res++;
+    }
+    cout << res << '\n';
     return;
 }
 

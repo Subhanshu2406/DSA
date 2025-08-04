@@ -1,3 +1,4 @@
+//author : subhanshugupta2406
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -13,6 +14,13 @@ using namespace std;
 #define sz(x) ((int)(x).size())
 #define fi first
 #define se second
+#define Y cout<<"YES"
+#define N cout<<"NO"
+#define L cout<<"\n"
+#define M cout<<-1
+#define fr(i,n) for(int i=0;i<(n);i++)
+#define mxe(x) *max_element(x.begin(),x.end())
+#define mne(x) *min_element(x.begin(),x.end())
 
 // Debug
 #ifdef LOCAL
@@ -31,21 +39,27 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
+int dfs(vector<int>& arr,int i){
+    if(arr[i] < arr[i-1]) return dfs(arr,i+1) + arr[i];
+    else{
+        return max()
+    }
+
+}
+
+
 void solve() {
     int n;
     cin >> n;
     vector<int> arr(n);
-    for(int i = 0;i < n;i++){
+    for(int i = 0;i<n;i++){
         cin >> arr[i];
     }
-    int x  = 1;
-    for(int i = 0;i< n-1;i++){
-        if(arr[i+1] % arr[i] == 0 || arr[i+1] % (arr[i]/x) == 0 || (arr[i+1]/x) % arr[i] == 0) continue;
-        else{
-            x = x * (arr[i] / arr[i+1]);
-        } 
-    }
-    cout << x << '\n';
+    int res = 0;
+    res = dfs(arr);
+
+    cout << res;
+    L;
     return;
 }
 
