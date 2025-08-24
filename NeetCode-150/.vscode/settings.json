@@ -14,6 +14,10 @@
         "ostream": "cpp",
         "streambuf": "cpp",
         "tuple": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "xhash": "cpp",
+        "cstdlib": "cpp",
+        "list": "cpp",
+        "xlocinfo": "cpp"
     }
 }
