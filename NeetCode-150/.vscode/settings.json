@@ -18,6 +18,8 @@
         "xhash": "cpp",
         "cstdlib": "cpp",
         "list": "cpp",
-        "xlocinfo": "cpp"
+        "xlocinfo": "cpp",
+        "xlocale": "cpp",
+        "format": "cpp"
     }
 }

@@ -1,3 +1,4 @@
+//author : subhanshugupta2406
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -13,6 +14,13 @@ using namespace std;
 #define sz(x) ((int)(x).size())
 #define fi first
 #define se second
+#define Y cout<<"YES"
+#define N cout<<"NO"
+#define L cout<<"\n"
+#define M cout<<-1
+#define fr(i,n) for(int i=0;i<(n);i++)
+#define mxe(x) *max_element(x.begin(),x.end())
+#define mne(x) *min_element(x.begin(),x.end())
 
 // Debug
 #ifdef LOCAL
@@ -32,15 +40,13 @@ const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
 void solve() {
-   
+    return;
 }
- 
-
 
 int main() {
     fast_io
     int t = 1;
-    cin >> t; 
+    cin >> t;
     while (t--) {
         solve();
     }

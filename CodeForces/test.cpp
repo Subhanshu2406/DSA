@@ -40,26 +40,7 @@ const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for(int i = 0;i<n;i++){
-        cin >> arr[i];
-    }
-    string res = "";
-    int l = 0;
-    int r = arr.size() -1;
-    int toggle = 0; //ascending
-    int len = 1;
-    int curr = arr[0];
-    while(l <= r){
-        if(arr[l] == arr[r]){
-            s += 'L';
-            l++;
-        }
-        else if()
-    }
-
+    
     return;
 }
 

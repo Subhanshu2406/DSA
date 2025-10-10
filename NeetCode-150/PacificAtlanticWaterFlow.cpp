@@ -1,53 +1,43 @@
-//a dfs and use memoization wont work as say we went from a -> b where b is enclosed and cant go anywhere so we mark both a and b as visited and not able to reach the water but say if water was able to go from a -> b -> some c,d,e,sea which we never checked so a and b although possibly could reach the sea, we marked them as false.
+//here we do dfs for both oceans for both borders
+//we start from borders as obvio we can reach ocean from borders and then see which cells adjacent to border can reach border and mark them true and then continue this in dfs fashion
+//we dont even need a visited list here since, if a cell was earlier marked true then it means water can reach border from that cell to ocean so dfs was already performed on it
+//however say if a cell is marked false, it means till now we havent found an way for this cell to reach border, so we check height with curr cell and see if this adjacent cell can reach curr cell coz if it can then it reaches the border
+
 class Solution {
 public:
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        vector<vector<int>> res;
         int n = heights.size();
         int m = heights[0].size();
-        vector<vector<pair<bool,bool>>> pacific(n,vector<pair<bool,bool>>(m,{false,false}));
-        vector<vector<pair<bool,bool>>> atlantic(n,vector<pair<bool,bool>>(m,{false,false}));
+        vector<vector<int>> res;
+        vector<vector<bool>> pacific(n,vector<bool>(m,false));
+        vector<vector<bool>> atlantic(n,vector<bool>(m,false));
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m;j ++){
-                if(!pacific[i][j].second){
-                    dfs(heights,pacific,i,j,0);
-                }
-                if(!atlantic[i][j].second){
-                    dfs(heights,atlantic,i,j,1);
-                }
+        for(int i = 0;i < n;i ++){
+            dfs(heights, pacific, i, 0);
+            dfs(heights, atlantic, i, m-1);
+        }
+
+        for(int i = 0; i < m;i ++){
+            dfs(heights,pacific,0,i);
+            dfs(heights,atlantic,n-1,i);
+        }
+
+        for(int i = 0;i < n;i++){
+            for(int j = 0;j < m;j++){
+                if(pacific[i][j] && atlantic[i][j]) res.push_back({i,j});
             }
         }
 
-        for(int i = 0;i < n ; i ++){
-            for(int j = 0;j < m; j++){
-                if(pacific[i][j].first && atlantic[i][j].first) res.push_back({i,j});
-            }
-        }
         return res;
     }
 
-    bool dfs(vector<vector<int>>& heights, vector<vector<pair<bool,bool>>> &sea, int i, int j, int type){
-        int n = heights.size();
-        int m = heights[0].size();
-
-        if(sea[i][j].second) return sea[i][j].first;
-        sea[i][j].second = true;
-
-        if(type == 0 && (i == 0 || j == 0)){
-            sea[i][j].first = true;
-            return sea[i][j].first;
+    void dfs(vector<vector<int>> &heights, vector<vector<bool>> &sea, int row, int col){
+        sea[row][col] = true;
+        vector<pair<int,int>> diff = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+        for(int j = 0;j < 4; j++){
+            int newRow = row + diff[j].first;
+            int newCol = col + diff[j].second;
+            if(newRow < heights.size() && newRow >= 0 && newCol < heights[0].size() && newCol >= 0 && !sea[newRow][newCol] && heights[newRow][newCol] >= heights[row][col]) dfs(heights,sea,newRow,newCol);
         }
-        else if(type == 1 && (i == n - 1|| j  == m - 1)){
-            sea[i][j].first = true;
-            return sea[i][j].first;
-        }
-
-        if(i + 1 < n && heights[i+1][j] <= heights[i][j] && dfs(heights,sea,i+1,j,type)) sea[i][j].first = true;
-        if(j + 1 < m && heights[i][j+1] <= heights[i][j] &&  dfs(heights,sea,i,j+1,type)) sea[i][j].first = true;
-        if(i - 1 >= 0 && heights[i-1][j] <= heights[i][j] &&  dfs(heights,sea,i-1,j,type)) sea[i][j].first = true;
-        if(j - 1 >= 0 && heights[i][j-1] <= heights[i][j] &&  dfs(heights,sea,i,j-1,type)) sea[i][j].first = true;
-
-        return sea[i][j].first;
     }
 };
