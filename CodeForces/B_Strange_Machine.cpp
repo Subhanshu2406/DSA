@@ -39,42 +39,45 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-bool palindrome(vector<int> &s){
-    int l = 0;
-    int r = s.size() - 1;
-    while(l < r){
-        if(s[l] == -1) l++;
-        else if(s[r] == -1) r--;
-        else {
-            if(s[l] != s[r]) return false;
-            l++;
-            r--;
-        }
-    }
-    return true;
-}
-
-
 void solve() {
-    // int n;
-    // cin >> n;
-    // vector<int> arr(n,0);
-    // for(int i = 0; i < n; i++){
-    //     cin >> arr[i];
-    // }
-    int n;
-    cin >> n;
+    int n,q;
+    cin >> n >> q;
     string s;
     cin >> s;
-    vector<int> arr(n,0);
-    for(int i = 0; i < n; i++){
-        arr[i] = int(s[i] - '0');
+    vector<int> arr(q,0);
+    for(int i = 0; i < q; i++){
+        cin >> arr[i];
     }
-    if(dfs(arr,0,0)){
-        cout << -1;
-        L;
+
+    int flag = 0;
+    for(int i = 0;i < n;i++){
+        if(s[i] == 'B') flag = 1;
     }
     
+    for(int i = 0;i < q;i++){
+        int query = arr[i];
+        int counter = 0;
+        int res = 0;
+
+        if(flag == 0){
+            cout << query;
+            L;
+            continue;
+        }
+        
+        while(query){
+            if(s[counter] == 'A') query--;
+            else query = query/2;
+            if(counter == n-1) counter = 0;
+            else counter++;
+
+            res++;
+        }
+
+        cout << res;
+        L;
+
+    }
     return;
 }
 

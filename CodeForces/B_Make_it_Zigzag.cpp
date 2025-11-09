@@ -39,42 +39,39 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-bool palindrome(vector<int> &s){
-    int l = 0;
-    int r = s.size() - 1;
-    while(l < r){
-        if(s[l] == -1) l++;
-        else if(s[r] == -1) r--;
-        else {
-            if(s[l] != s[r]) return false;
-            l++;
-            r--;
-        }
-    }
-    return true;
-}
-
-
 void solve() {
-    // int n;
-    // cin >> n;
-    // vector<int> arr(n,0);
-    // for(int i = 0; i < n; i++){
-    //     cin >> arr[i];
-    // }
     int n;
     cin >> n;
-    string s;
-    cin >> s;
     vector<int> arr(n,0);
     for(int i = 0; i < n; i++){
-        arr[i] = int(s[i] - '0');
+        cin >> arr[i];
     }
-    if(dfs(arr,0,0)){
-        cout << -1;
-        L;
+    int res = 0;
+    vector<int> prefix(n);
+    prefix[0] = arr[0];
+    for(int i = 1;i < n;i++){
+        prefix[i] = max(arr[i],prefix[i-1]);
     }
-    
+
+    for(int i = 0; i < n;i ++){
+        if(i == 0) continue;
+        int j = i + 1;
+        if(j % 2 == 1){
+            if(arr[i] < prefix[i-1]) continue;
+            else if(arr[i] >= prefix[i-1]) {
+                res += arr[i] - prefix[i-1] + 1; 
+                arr[i] = prefix[i-1] - 1;
+            }
+        }
+
+        else{
+            if(arr[i] > arr[i-1]) continue;
+            else if(prefix[i] == arr[i-1]) res++;
+        }
+    }
+
+    cout << res;
+    L;
     return;
 }
 

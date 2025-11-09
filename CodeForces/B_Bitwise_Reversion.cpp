@@ -39,42 +39,28 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-bool palindrome(vector<int> &s){
-    int l = 0;
-    int r = s.size() - 1;
-    while(l < r){
-        if(s[l] == -1) l++;
-        else if(s[r] == -1) r--;
-        else {
-            if(s[l] != s[r]) return false;
-            l++;
-            r--;
-        }
-    }
-    return true;
-}
-
-
 void solve() {
-    // int n;
-    // cin >> n;
-    // vector<int> arr(n,0);
-    // for(int i = 0; i < n; i++){
-    //     cin >> arr[i];
-    // }
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    vector<int> arr(n,0);
-    for(int i = 0; i < n; i++){
-        arr[i] = int(s[i] - '0');
+    int a,b,c;
+    cin >> a >> b >> c;
+
+    int temp = 0;
+    while(a || b || c){
+        if(a % 2 == 1) temp++;
+        if(b % 2 == 1) temp++;
+        if(c % 2 == 1) temp++;
+        if(temp == 2){
+            cout << "NO";
+            L;
+            return;
+        }
+        temp = 0;
+        a = a/2;
+        b = b/2;
+        c = c/2;
     }
-    if(dfs(arr,0,0)){
-        cout << -1;
-        L;
-    }
-    
+    cout << "YES";
+    L;
+
     return;
 }
 

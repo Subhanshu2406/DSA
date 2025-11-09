@@ -39,42 +39,37 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-bool palindrome(vector<int> &s){
-    int l = 0;
-    int r = s.size() - 1;
-    while(l < r){
-        if(s[l] == -1) l++;
-        else if(s[r] == -1) r--;
-        else {
-            if(s[l] != s[r]) return false;
-            l++;
-            r--;
-        }
-    }
-    return true;
-}
-
-
 void solve() {
-    // int n;
-    // cin >> n;
-    // vector<int> arr(n,0);
-    // for(int i = 0; i < n; i++){
-    //     cin >> arr[i];
-    // }
     int n;
     cin >> n;
-    string s;
-    cin >> s;
-    vector<int> arr(n,0);
+    vector<int> A(n,0);
+    vector<int> B(n,0);
     for(int i = 0; i < n; i++){
-        arr[i] = int(s[i] - '0');
+        cin >> A[i];
     }
-    if(dfs(arr,0,0)){
-        cout << -1;
-        L;
+    for(int i = 0; i < n; i++){
+        cin >> B[i];
     }
-    
+
+    int mem = 2 * pow(10,5);
+    vector<int> visit(mem+1,0);
+
+    for(int i = 0;i < n;i++){
+        int curr = A[i];
+        if(visit[curr] == 1){
+            cout << 0;
+            L;
+            return;
+        }
+
+        
+
+        int temp = A[i];
+        while(temp <= mem){ 
+            visit[temp] = 1;
+            temp = temp + curr;
+        }
+    }
     return;
 }
 
@@ -86,4 +81,21 @@ int main() {
         solve();
     }
     return 0;
+}
+
+
+vector<bool> primeNumbers(int n){
+    vector<bool> arr(n+1, true);
+    arr[0] = false;
+    arr[1] = false;
+
+    for(int i = 2; i <= n; i++){
+        if(arr[i] == false) continue;
+
+        int temp = 2 * arr[i];
+        while(temp <= n){
+            arr[temp] = false;
+            temp = temp + arr[i];
+        }
+    }
 }

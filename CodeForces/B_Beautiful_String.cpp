@@ -54,7 +54,40 @@ bool palindrome(vector<int> &s){
     return true;
 }
 
+bool dfs(vector<int> &s, int flag, int i){
+    if((i > s.size())) return false;
+    if(i == s.size() && palindrome(s)){
+        int counter = 0;
+        int n = s.size();
+        for(int i = 0;i<n;i++){
+            if(s[i] == -1) counter ++;
+        }
+        cout << counter;
+        L;
+        for(int i = 0;i<n;i++){
+            if(s[i] == -1) cout << i+1 << " ";
+        }
+        L;
+        return true;
+    }
+    else if(s.size() == i && !palindrome(s)) return false;
 
+    int temp = s[i];
+    if(s[i] == 0 && flag == 0){
+        s[i] = -1;
+        if(dfs(s,0,i+1)) return true;
+        s[i] = temp;
+    }
+
+    else if(s[i] == 1){
+        s[i] = -1;
+        if(dfs(s,1,i+1)) return true;
+        s[i] = temp;
+    }
+
+    if(dfs(s,flag,i+1)) return true;
+    return false;
+}
 void solve() {
     // int n;
     // cin >> n;
@@ -70,7 +103,7 @@ void solve() {
     for(int i = 0; i < n; i++){
         arr[i] = int(s[i] - '0');
     }
-    if(dfs(arr,0,0)){
+    if(!dfs(arr,0,0)){
         cout << -1;
         L;
     }

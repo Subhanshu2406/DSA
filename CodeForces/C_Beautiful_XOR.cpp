@@ -39,41 +39,43 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-bool palindrome(vector<int> &s){
-    int l = 0;
-    int r = s.size() - 1;
-    while(l < r){
-        if(s[l] == -1) l++;
-        else if(s[r] == -1) r--;
-        else {
-            if(s[l] != s[r]) return false;
-            l++;
-            r--;
-        }
-    }
-    return true;
-}
-
-
 void solve() {
-    // int n;
-    // cin >> n;
-    // vector<int> arr(n,0);
-    // for(int i = 0; i < n; i++){
-    //     cin >> arr[i];
-    // }
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    vector<int> arr(n,0);
-    for(int i = 0; i < n; i++){
-        arr[i] = int(s[i] - '0');
-    }
-    if(dfs(arr,0,0)){
+    long long a,b;
+    cin >> a >> b;
+
+    if(b > a){
         cout << -1;
         L;
+        return;
     }
+
+    vector<long long> A;
+    vector<long long> B;
+
+    while(a || b){
+        A.push_back(a % 2);
+        B.push_back(b % 2);
+        a = a/2;
+        b = b/2;
+    }
+
+    long long n = A.size();
+
+    long long counter = 0;
+    vector<long long> res;
+    for(int i = n - 1;i >= 0;i--){
+        if(A[i] != B[i]){
+            res.push_back(pow(2,n-i-1));
+            counter++;
+        }
+    }
+    
+    cout << counter;
+    L;
+    for(int i = 0 ;i < res.size();i++){
+        cout << res[i] << " ";
+    }
+    if(counter != 0)L;
     
     return;
 }

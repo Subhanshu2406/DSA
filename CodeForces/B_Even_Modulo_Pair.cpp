@@ -39,42 +39,55 @@ const int MOD = 1e9 + 7;
 const int INF = INT_MAX;
 const ll LINF = LLONG_MAX;
 
-bool palindrome(vector<int> &s){
-    int l = 0;
-    int r = s.size() - 1;
-    while(l < r){
-        if(s[l] == -1) l++;
-        else if(s[r] == -1) r--;
-        else {
-            if(s[l] != s[r]) return false;
-            l++;
-            r--;
-        }
-    }
-    return true;
-}
-
-
 void solve() {
-    // int n;
-    // cin >> n;
-    // vector<int> arr(n,0);
-    // for(int i = 0; i < n; i++){
-    //     cin >> arr[i];
-    // }
     int n;
     cin >> n;
-    string s;
-    cin >> s;
     vector<int> arr(n,0);
     for(int i = 0; i < n; i++){
-        arr[i] = int(s[i] - '0');
+        cin >> arr[i];
     }
-    if(dfs(arr,0,0)){
-        cout << -1;
+
+    int first = -1;
+    int second = -1;
+
+    for(int i = 0;i < n;i++){   //to detect if more than one evens are present
+        if(arr[i] % 2 == 0){
+            if(first == -1) first = i;
+            else if(second == -1) second = i;
+        }
+    }
+
+    if(first != -1 && second != -1){       
+        cout << arr[first] << " " << arr[second];
         L;
+        return;
     }
+
+    else if(first != -1 && second == -1){
+        for(int i = 0;i < first;i++){
+            if((arr[first] % arr[i]) % 2 == 0){
+                cout << arr[i] << " " << arr[first];
+                L;
+                return;
+            }
+        }
+    }
+
+    for(int i = 0;i < n-1;i++){
+        for(int j = i + 1; j < n;j++){
+            if((arr[j] % arr[i]) % 2 == 0){
+                cout << arr[i] << " " << arr[j];
+                L;
+                return;
+            }
+        }
+    }
+
+    cout << -1;
+    L;
+
     
+
     return;
 }
 
